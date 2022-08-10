@@ -37,6 +37,15 @@ public class EmployeeController {              // http://localhost:8080/employee
     public Map<String,Employee> findAll (){
         return employeeService.findAll();
     }
+    @GetMapping(path = "/find")
+    public Employee find (@RequestParam ("firstName") String userName,
+                                      @RequestParam ("lastName") String userSurname,
+                                      @RequestParam (value = "patronomic",required = false) String userPatronomic,
+                                      @RequestParam (value = "salary",required = false) int userSalary,
+                                      @RequestParam (value = "department",required = false) int userDepartment){
+        return employeeService.findEmployee(userSurname,userName,userPatronomic,userSalary,userDepartment);
+    }
+
 }
 
 

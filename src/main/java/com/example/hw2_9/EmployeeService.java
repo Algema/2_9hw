@@ -1,6 +1,7 @@
 package com.example.hw2_9;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,30 +27,46 @@ public class EmployeeService {
 
     public  Employee addEmployee(String lastName,String firstName,String patronomic,int salary, int department) { // возвращает только значение
         Employee newEmployee = new Employee(lastName,firstName,patronomic,salary,department);
-        String kayAdd=lastName+firstName;
+        String keyAdd=lastName+firstName;
         if (lastName == null || firstName == null) {
             System.out.println("отсутсвует первый или второй параметр");
             return null;
-        } else if (allEmployee.containsKey(kayAdd)) {
+        } else if (allEmployee.containsKey(key( lastName,firstName))) {
             throw new EmployeeAlreadyAddedException("такой уже есть");
         } else {
-            allEmployee.put(kayAdd,newEmployee);
+            allEmployee.put(keyAdd,newEmployee);
         }
         return newEmployee;
     }
 
     public   Employee removeEmployee(String lastName,String firstName,String patronomic,int salary, int department){
         Employee removeEmployee = new Employee(lastName,firstName,patronomic,salary,department);
-        String kayAdd2=lastName+firstName;
+        String keyAdd2=lastName+firstName;
         if(firstName == null || lastName == null) {
             System.out.println("отсутсвует первый или второй параметр");
             return null;
-        }else if (!allEmployee.containsKey(kayAdd2)) {
+        }else if (!allEmployee.containsKey(keyAdd2)) {
             throw new EmployeeNotFoundException("сотрудник не найден");
         } else {
-            allEmployee.remove(kayAdd2);
+            allEmployee.remove(key( lastName,firstName));
         }
         return  removeEmployee;
+    }
+    public Employee findEmployee(String lastName,String firstName,String patronomic,int salary, int department) {
+        Employee findEmployee1 = new Employee(lastName,firstName,patronomic,salary,department);
+        if(firstName == null || lastName == null) {
+            System.out.println("отсутсвует первый или второй параметр");
+            return null;
+        }else if (!allEmployee.containsKey(key(lastName, firstName))) {
+            throw new EmployeeNotFoundException("сотрудник не найден");
+        } else {
+            allEmployee.remove(key( lastName,firstName));
+        }
+        return  findEmployee1;
+
+    }
+    private String key(String lastName,String firstName ){
+        return lastName+firstName;
     }
 
 }

@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND , reason = "не найден")
 public class EmployeeNotFoundException extends RuntimeException{
-    public EmployeeNotFoundException(String message) {
-        super(message);
+    public EmployeeNotFoundException(String massage) {
+        super(massage);
     }
-    // ненайден
+    // не найден
 }

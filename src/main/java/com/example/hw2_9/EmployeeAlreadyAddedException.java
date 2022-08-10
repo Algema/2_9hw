@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus (value = HttpStatus.FOUND , reason = "уже есть такой сотрудник")
 public class EmployeeAlreadyAddedException extends RuntimeException{
 
-    public EmployeeAlreadyAddedException(String message) {
-        super(message);
+    public EmployeeAlreadyAddedException(String massage) {
+        super(massage);
     }
     //уже есть такой сотрудник
 }

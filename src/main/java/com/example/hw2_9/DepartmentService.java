@@ -22,7 +22,7 @@ public class DepartmentService {
                 .stream()
                 .filter(e -> e.getDepartment()==departmentId)
                 .max(Comparator.comparingInt(e -> e.getSalary()))
-                .orElseThrow();
+                .orElseThrow(()-> new EmployeeNotFoundException("не найден"));
        return  maxSalaryEmployee;
 
     }
@@ -33,17 +33,16 @@ public class DepartmentService {
                 .stream()
                 .filter(e -> e.getDepartment()==departmentId)
                 .min(Comparator.comparingInt(e -> e.getSalary()))
-                .orElseThrow();
+                .orElseThrow(()-> new EmployeeNotFoundException("не найден") );
         return  minSalaryEmployee;
 
     }
-    public List<Employee> allEmployees2() {
+    public Map<Integer,List<Employee>> allEmployees2() {
         Map<String, Employee> employees = employeeService.findAll();
-        final List <Employee> allEmployees2= employees
+        final Map<Integer,List<Employee>> allEmployees2= employees
                 .values()
                 .stream()
-                .sorted(Comparator.comparingInt(e -> e.getDepartment()))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(e->e.getDepartment()));
         return  allEmployees2;
     }
 
